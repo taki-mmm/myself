@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>PHPのまとめ</title>
+</head>
+<style>
+  body{
+    text-align: center;
+  }
+
+  code, pre{
+    font-size: 16px;
+  }
+
+  h2{
+    width:50%;
+    margin:0 auto;
+    border-bottom: 2px solid red;
+    padding-bottom: 10px;
+  }
+</style>
+<body>
+  <h1>PHPのまとめ</h1>
+  <p>PHPの開始タグは&lt;?phpと打つ<br>終了タグは?&gt;sの下にHTMLを書かない場合には不要</p>
+  <p>echoによって文字列を表示する<br>文字列は’’か””で囲む<br>命令の区切りに；をつけて命令を終了する</p>
+  <p>改行をする場合には文字列の後に.を打ち、PHP_EOLと入力(End Of Line)</p>
+  <p>PHP内でのコメントは//か#か/**/をつける</div></p>
+  <p>文字列の中で”を使いたい場合\(option + ¥)を前に入れる</p>
+
+  <h2>変数の作り方</h2>
+   <p>$変数名 = "文字列";</p>
+   <p>変数の長い文章を入力したい場合
+     <br>$変数名 = &lt;&lt;&lt;"EOT"
+     <br>hello!
+     <br>  this is looooooong
+     <br>text!
+     <br>EOT;
+     <br>このようにすれば改行や字下げも反映される。””にすれば変数を入れることもできる</div>
+    </p>
+    <p>var_dump();によって変数の形を調べることができる。</p>
+
+  <h2>定数の作り方</h2>
+   <p>define('NAME', '自分の名前')</p>
+   <p>この場合NAMEという定数に自分の名前が代入される。</p>
+   <p>const NAME = '自分の名前'</p>
+   <p>JavaScriptと同じ書き方でも可能</p>
+
+  <h2>ifによる条件分岐</h2>
+   <pre>&lt;?php
+
+    $score = 85;
+    
+    if ($score >= 80) {
+      echo 'Great!' . PHP_EOL;
+    } elseif ($score >= 60) {
+      echo 'Good!' . PHP_EOL;
+    } else {
+      echo 'OK!' . PHP_EOL;
+    }</pre>
+    <p>false の評価になるものは０や'',[]などがある</p>
+  <h3>〜論理演算子〜</h3>
+   <p>二つ以上の条件を入れたい場合やif文を2回使う場合に使う</p>
+   <p>&& and -> なおかつ</p>
+   <p>|| or もしくは</p>
+   <p>!  ~ではない</p>
+  <h3>〜Switch文〜</h3>
+   <p>If文の応用</p>
+   <pre>switch ($signal) {
+    case 'red':
+      echo 'Stop!' . PHP_EOL;
+      break;
+    case 'yellow':
+      echo 'Caution!' . PHP_EOL;
+      break;
+    case 'blue':
+      echo 'Go!' . PHP_EOL;
+      break;
+  }</pre>
+  <p>Switch文はcaseによって分けることができる。最後にbreakをして処理を終了する。</p>
+
+  <h2>ループ処理</h2>
+  <h3>〜for loop〜</h3>
+  <pre>for ($i = 1; $i &lt;= 5; $i++) {
+    // echo 'Hello' . PHP_EOL;
+    echo "$i - Hello" . PHP_EOL;
+  }</pre>
+  <h3>〜While〜</h3>
+  <p>do whileはwhileの中の文を満たさなくてもdoの中は初めに実行される。</p>
+  <pre>do {
+    echo "Your HP: $hp" . PHP_EOL;
+    $hp -= 15;
+  } while ($hp > 0);</pre>
+  <h3>For, Whileのロープを特定の回だけ飛ばす方法</h3>
+  <p>ifで飛ばしたい条件を指定し、continueと入力すれば一度だけ処理がスキップされる。</p>
+  <p>また、指定した処理でループを抜け出したい場合は<code>break;</code>と打てば処理が終了する。</p>
+
+  <h2>関数化</h2>
+  <p> 関数化することによってプログラムを変更したいときに一箇所帰るだけで全て変更することができる。また、簡略化し見やすくすることができる。</p>
+  <code>function 関数の名前($引数 = 実引数を渡さなかった場合のデフォルト値){関数の処理}</code>
+  <h3>〜型付け〜</h3>
+  <p>引数に文字列のみを指定したい場合は変数の前に<code>string</code></p>
+  <p>引数に数値型のみを指定したい場合は変数の前に<code>int</code>と入れることによって数値の場所に文字を指定することはできなくなる</p>
+  <p>また、返り値の値は:の後に指定することができて返り値がない場合は: voidと入力する。nullかそのほかを返したい場合は?intなどと書く。</p>
+  <p>厳密な型チェックをする場合は<code>declare(strict_types=1);</code>と関数の前に入力することによって厳しくチェックされる。</p>
+  <h3>〜スコープとは〜</h3>
+  <p>スコープは変数の有効範囲を表す</p>
+  <p>関数の中だけで有効なのはローカルスコープ</p>
+  <p>関数の外全てで有効なのはグローバルスコープ</p>
+  <p>グローバルスコープを関数の中で使いたい場合、<code>global $変数名;</code>と入力することによって関数内でもグローバルスコープを使うことができる</p>
+
+  <h2>条件演算子</h2>
+  <code>return 条件 ? 値１：値２</code>
+  <p>条件演算子は簡略化したもので条件が当てはまった場合は値１を返し、当てはまらなかった場合は値２を返す。</p>
+
+  <h2>配列</h2>
+  <code>$変数名 = [値1, 値2, 値3];</code>
+  <p>複数の値を一つの変数に入れる場合上記のように記述する。</p>
+  <p>インデックスは0から始まる</p>
+  <h3>〜配列の中身の表し方〜</h3>
+  <code>var_dump($変数名);</code>
+  <code>print_r($変数名);</code>
+  <h3>値のキーの変え方</h3>
+  <code>$変数名 = {'キー1' => 値1, 'キー2' => 値2, 'キー3' => 値3,}</code>
+  <p>インデックスの順番を0からではなく自分の好きな名前、数字から始めることができる。</p>
+  <h3>〜forEach〜</h3>
+  <code>foreach ($配列名 as $変数1）{ echo $変数1 . PHP_EOL;} </code>
+  <h3>〜配列の中に別の配列を入れたかった場合〜</h3>
+  <p>入れたい配列を入れる配列の中にそのまま書き込み入れたい配列の前に...と書くことによって中に入れることができる。</p>
+  <code>$配列名[配列の何番目か][その中の配列で何番目か]</code>
+  <p>配列の中に入っている配列の値を指定したい場合は上記のように書く</p>
+  <h3>可変長引数</h3>
+  <pre>function getStats(...$numbers) {
+      $total = 0;
+      foreach ($numbers as $number) {
+        $total += $number;
+      }
+      return [$total, $total / count($numbers)];
+    }
+    
+    [$sum, $average] = getStats(1, 3, 5);</pre>
+  <p>functionの変数の前に...をつけることによっていくら値が入っても出力されるようになる</p>
+  <p>配列の個数を数える場合には<code>count($変数)</code>によって数を数えることができる。</p>
+  <p>複数の返り値を受け取る場合には、[]で変数を囲み受け取ることができる。</p>
+
+  <h1>ビルトイン関数</h1>
+  <h2>ビルトイン関数とは</h2>
+  <p>あらかじめPHPの中に組み込まれている関数のこと。一例として以下がある。</p>
+  <p><code>strlen('Hello')</code>文字列の長さを数字で返してくれる。この場合５が返される。</p>
+  <p><code>number_format('1234567')</code>三桁ごとに区切って数字を返す。この場合1,234,567が返される。</p>
+  <p><code>shuffle([1, 3, 5, 8])</code>値を入れ替えて数字を返す。一例として[3, 8, 5,1]と返される。</p>
+  <p><code>array_unique([1, 1, 4, 4, 7])</code>重複した要素を取り除く。返されるのは[1, 4, 7]</p>
+
+  <h2>sprintf()とprintf()</h2>
+  <code>$変数名 = sprintf("[%s][%d][%f]", $値1, $値2);</code>
+  <p>文字列だったら%s、整数だったら%d、浮動小数点数だったら%fで指定する。</p>
+  <p>表示幅を指定する場合%の後に幅の数字を入れる。また小数点の場合には何桁表示するかを<code>.2f</code>コロンで区切り小数点の数を指定する。</p>
+  <p>左づめにする場合-を入れる。また空白に文字を入れる場合入れたい数字などを表示幅の前に入れる。</p>
+  <p>sprintf()は文字列を作ってくれる。print()は表示したい場合に使う。</p>
+
+  <h2>文字列を扱う関数。</h2>
+  <p>strlen()は空白を含めた文字数を返してくれる。</p>
+  <p>trim()は空白や余白を除去してくれる。</p>
+  <p>strpos($変数, '値')は変数の中から探したい値を探し0からの値で返してくれる。</p>
+  <p>str_replace('値1', '値2', $変数)は変数の中の値1を値2置換してくれる。</p>
+  <h3>〜マルチバイト文字列〜</h3>
+  <p>日本語を扱う場合にはマルチバイト文字列を使わないといけない。</p>
+  <p>strlen()の場合はmb_strlen()を使い、strpos()の場合にはmb_strpos()を使う。</p>
+  <p>str_replace()は'UTF-8'を使っている場合は変える必要はない。</p>
+  <h3>〜substr(),substr_replace()〜</h3>
+  <p>固定長でーたから特定の長さの文字列を取り出す。</p>
+  <p><code>substr($変数, 値1, 値2)</code>値1には何文字目から始めるか、値2には何桁分か</p>
+  <p><code>substr_replace($変数, '入れ替えたい値', 値1, 値2)</code></p>
+  <h3>〜文字列と配列の変換〜</h3>
+  <pre>
+    $d = [2020, 11, 15];
+    echo implode('-', $d) . PHP_EOL;
+    
+    $t = '23:05:24';
+    print_r(explode(':', $t));
+  </pre>
+  <p><code>implode()</code>は区切り文字で配列の要素を連結する。</p>
+  <p><code>explode()</code>は配列の要素に分けることができる。</p>
+  <h3>〜数学系の関数〜</h3>
+  <p><code>ceil()</code>小数点以下を切り上げ</p>
+  <p><code>floor()</code>小数点以下を切り捨て</p>
+  <p><code>round()</code>四捨五入。桁数も指定可</p>
+  <p><code>mt_rand(範囲)</code>ランダムな数字を生成</p>
+  <p><code>max()</code>入力された値の最大値</p>
+  <p><code>min()</code>入力された値の最小値</p>
+  <p><code>M_PI</code>円周率の定数</p>
+  <p><code>M_SQRT2</code>2の平方根</p>
+  <h3>〜配列の操作〜</h3>
+  <p><code>array_unshift()</code>配列の先頭に文字を追加</p>
+  <p><code>array_push()</code>配列の末尾に文字を追加</p>
+  <p><code>array_shift()</code>配列の先頭から要素を一つ削除</p>
+  <p><code>array_pop()</code>配列の末尾から要素を一つ削除</p>
+  <p><code>array_slice(配列, 位置, 個数)</code>指定した部分を切り出し新しい配列を作る。</p>
+  <p><code>array_splice(配列, 位置, 個数)</code>指定した範囲を削除する。新しい値を入れることも可能。</p>
+  <p><code>array_rand()</code>配列からランダムにキーを取り出す</p>
+  <p><code>array_fill(位置, 個数, 値)</code>配列を値で埋める</p>
+  <p><code>array_sum</code>配列の合計</p>
+  <p><code>array_merge(配列1, 配列2)</code>二つの配列をつなげる</p>
+  <p><code>array_diff(配列1, 配列2)</code>配列1から配列2にある要素をひく</p>
+  <p><code>array_intersect(配列1, 配列2)</code>配列の共通の要素を抽出する</p>
+  <p><code>sort()</code>小さい順に値を並べ替える</p>
+  <p><code>rsort()</code>大きい順に値を並べ替える</p>
+  <p><code>shuffle()</code>配列をシャッフルして並べる</p>
+
+</body>
+</html>
