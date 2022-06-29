@@ -301,9 +301,9 @@
   <h1>ウェブ開発</h1>
   <p>初めにターミナルで<code>docker-compose up -d</code>と入力し開発環境を用意する。</p>
   <p><code>localhost:8080/index.html</code>でアクセスできる。</p>
-  <h3>短縮記法</h3>
+  <h3>〜短縮記法〜</h3>
   <p><code>&lt?php echo</code>は単に<code>&lt? =</code>とするだけでも同じ意味になる</p>
-  <h3>文字実体参照</h3>
+  <h3>〜文字実体参照〜</h3>
   <p>HTML内に文字を埋め込むときにHTMLのタグと認識されなようにする方法</p>
   <p><code>htmlspecialchars(引数1,引数2,'引数3')</code>引数1には変換したい文字列、引数2には変換のためのフラグ(ENT_QUOTESなど)、引数3にはwebページの文字コード(UTF-8など)</p>
   <h3>〜構造の省略〜</h3>
@@ -312,5 +312,16 @@
   <p>forの場合はブロックの始まりは<code>:</code>終わりには<code>endfor;</code></p>
   <p>whileの場合はブロックの始まりは<code>:</code>終わりには<code>endwhile;</code></p>
   <p>switchの場合はブロックの始まりは<code>:</code>終わりには<code>endswitch;</code></p>
+  <h3>〜フォームで値の送信〜</h3>
+  <p>初めに<code>&lt;form&gt;</code>タグで囲み送信したい内容をインプットできるところを作る。</p>
+  <p>formタグの中に<code>action</code>属性をつけて送信先を決める。</p>
+  <p>送信形式は<code>method</code>属性で決めることができる。getまたはpostを指定する。</p>
+  <p>get形式の場合送信後、送信した値がURLに組み込まれる。</p>
+  <p>フォームを受け取る場合は受け取りたい側のファイルで<code>filter_input(INPUT_GET, '');</code>のようにして受け取る。</p>
+  <p>フォームで入力された値がからだった場合などには条件演算子などを使い設定すると良い。</p>
+  <p><code>textarea</code>などを使い複数行の入力にした場合には、そのまま開業などが反映されないため入力を受ける側で設定しないといけない。<br>その場合<code>nl2br()</code>で値を受け取れば改行などが反映される。。</p>
+  <p>セレクトボックスの場合</p>
+  <p>selectタグでmultiple属性を選んだ場合、値は配列で渡されるからname属性の名前に[]をつける</p>
+  <p>値を配列で受け取る場合には<code>FILTER_DEFAULT</code>と<code>FILTER_REQUIRE_ARRAY</code>を受け取る側で入力する</p>
 </body>
 </html>
