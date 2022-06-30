@@ -320,8 +320,23 @@
   <p>フォームを受け取る場合は受け取りたい側のファイルで<code>filter_input(INPUT_GET, '');</code>のようにして受け取る。</p>
   <p>フォームで入力された値がからだった場合などには条件演算子などを使い設定すると良い。</p>
   <p><code>textarea</code>などを使い複数行の入力にした場合には、そのまま開業などが反映されないため入力を受ける側で設定しないといけない。<br>その場合<code>nl2br()</code>で値を受け取れば改行などが反映される。。</p>
-  <p>セレクトボックスの場合</p>
-  <p>selectタグでmultiple属性を選んだ場合、値は配列で渡されるからname属性の名前に[]をつける</p>
+  <p>セレクトボックス,チェックボックスの場合</p>
+  <p>selectタグでmultiple属性を選んだ場合、値は配列で渡されるのでname属性の名前に[]をつける（セレクトボックス）</p>
+  <p>labelタグでinputタイプをcheckboxにし、値は配列で渡されるのでname属性の名前に[]をつける（セレクトボックス）</p>
   <p>値を配列で受け取る場合には<code>FILTER_DEFAULT</code>と<code>FILTER_REQUIRE_ARRAY</code>を受け取る側で入力する</p>
+  <p>ラジオボタンの場合</p>
+  <p>値は一つしか選べないためname属性に[]をつける必要はなし。</p>
+  <p>何も選ばれなかった場合nullで帰ってくるため<code>isset()</code>で確認する。</p>
+  <p>条件演算子を省略することも可能でnull合体演算子と呼ばれる<br><code>$color = filter_input(INPUT_GET, 'color') ?? 'None selected';</code></p>
+  <h3>〜cookieを使う〜</h3>
+  <p><code>setcookie('名前', $値)</code>名前で値を保存。</p>
+  <p>setcookieの前では何も出力してはいけない。(echo や HTMLを書いてはいけない)</p>
+  <p>cookieのリセット方法</p>
+  <p><code>setcookie()</code>の値を空にすることによってリセットされる。</p>
+  <p>その後、<code>header('Location: 場所')</code>関数を使いページのリダイレクトをする。<br>header関数を使うときは前で何も出力してはいけない。また、Lは大文字、:の後には半角空白が必要</p>
+  <p><strong>特徴</strong><br>1,ブラウザ側に保存 2,サイズ制限がある 3,文字列のみ 4,安全性が低い 5,簡単な設定項目などに使う</p>
+  <h3>〜sessionを使う〜</h3>
+  <p>cookieの場合デベロッパツールで編集することができてしまったが、sessionの場合はサーバー側で保持するので安全に値を扱うことができる。</p>
+  <p><strong>特徴</strong><br>1,サーバー側に保存 2,サイズ制限がない 3,オブジェクトなども可能 4,安全性が高い 5,認証情報などの保管に使う</p>
 </body>
 </html>
