@@ -348,6 +348,31 @@
   <p>ランダムな数を生成しそれをサーバー側に送り一致した場合のみ処理が実行されるようにする。</p>
 
   <h1>データベース編</h1>
-  
+  <p>PDO (PHP Database Objects)を使いデータベースを扱う。<br>PHPからデータベースへのアクセスを抽象化してくれるもので、 PDO を使って処理を実装しておけば、<br>データベースの種類が変わったとしても、やりとりしているコードを変える必要がないという仕組みになっている。</p>
+  <h2>PDO</h2>
+  <p>PDOのインスタンスを作るには引数に<br>DSN(Data Source Name)、ユーザー名とパスワードが必要</p>
+  <p>DSNはMySQLの場合<code>'mysql:host=マシン名;dbname=扱うデータベースの名前;charset=utf8mb4'</code>のような感じで設定する。</p>
+  <p>さらにカラム名がついた結果だけを常に取得したい場合<code>[PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]</code></p>
+  <p><code>[PDO::ATTR_ERRORMODE => PDO::ERRORMODE_EXCEPTION]</code>を追加すればMYSQLのエラーメッセージを表示できる。<br>表示するにはtry{}で全て囲みcatch{}で受け取る。<br>catchは<pre>
+    catch (PDOException $e) {
+    echo $e->getMessage() . PHP_EOL;
+    exit;
+  }</pre>のように記述する。</p>
+  <p><code>[PDO::ATTR_EMULATE_PREPARES => false]</code>にすることによってSQLで指定した方の形で抽出されるようになる。</p>
+  <h3>〜query()を使いSQLを発行する〜</h3>
+  <p><code>$pdo->query("SQLのコード")</code>でSQLが発行される。<br>query() メソッドの結果は PDOStatement と呼ばれるオブジェクトで返ってくる</p>
+  <p><code>fetch()</code>配列で取得したい場合に使う。</p>
+  <p><code>fetchall()</code>配列で複数の値を取得したい場合に使う。</p>
+
+  <h2>SQLインジェクションを防ぐ方法</h2>
+  <p>1,<code>prepare()</code>を使い値を埋め込んでもきちんと処理をしてくれるプリペアドステートメントを作る。<br>SQLを渡して値を埋め込みたい場所は<code>?</code>にする。<br>?ではなく名前をつけることも可能でその場合<code>:名前</code>とする</p>
+  <p>2,<code>execute([])</code>引数にプレースホルダと紐づける値を配列で渡す。</p>
+
+  <h2>クラスのインスタンスとして配列を取得</h2>
+  <p>PHPの書き方でクラスを作りfetchall()で<code>fetchall(PDO::FETCH_CLASS, 'クラス名')</code>とする</p>
+
+  <h2>トランザクション</h2>
+  <p>トランザクションする必要がある場所を<code>beginTransaction() と commit()</code>で囲む</p>
+  <p>その後<code>rollback()</code>を使うことによって途中で生合成が取れなくなった時でも元に値に戻すことができる。</p>
 </body>
 </html>
