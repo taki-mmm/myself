@@ -353,7 +353,7 @@
   <p>PDOのインスタンスを作るには引数に<br>DSN(Data Source Name)、ユーザー名とパスワードが必要</p>
   <p>DSNはMySQLの場合<code>'mysql:host=マシン名;dbname=扱うデータベースの名前;charset=utf8mb4'</code>のような感じで設定する。</p>
   <p>さらにカラム名がついた結果だけを常に取得したい場合<code>[PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]</code></p>
-  <p><code>[PDO::ATTR_ERRORMODE => PDO::ERRORMODE_EXCEPTION]</code>を追加すればMYSQLのエラーメッセージを表示できる。<br>表示するにはtry{}で全て囲みcatch{}で受け取る。<br>catchは<pre>
+  <p><code>[PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]</code>を追加すればMYSQLのエラーメッセージを表示できる。<br>表示するにはtry{}で全て囲みcatch{}で受け取る。<br>catchは<pre>
     catch (PDOException $e) {
     echo $e->getMessage() . PHP_EOL;
     exit;
